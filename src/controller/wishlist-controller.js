@@ -12,7 +12,17 @@ function getAllWishlists(request, response){
 };
 
 function getWishlistById(request, response){
-    response.send("Pegou um items")
+    const _id = request.params;
+    const showData = response.body;
+    Wishlist.findById(_id, showData)
+    .then(() => {
+        response.send(showData);
+        console.log(_id)
+    })
+    .catch(err => {
+        console.log(err)
+        response.status(500).send("Deu ruim")
+    })
 };
 
 function createWishlist(request, response) {
@@ -29,8 +39,19 @@ function createWishlist(request, response) {
     });
 }
 
+// function updateWishlist(reques, response){
+//     const id = request.params;
+//     const updateData = request.body;
+
+//     Wishlist.findByIdAndUpdate(id, updateData, {new: true})
+//     .then(() =>{
+//         response.status(200).send({message: "Content Updated"})
+//     })
+// }
+
 module.exports = {
     getAllWishlists: getAllWishlists,
     getWishlistById: getWishlistById,
-    createWishlist: createWishlist
+    createWishlist: createWishlist,
+    // updateWishlist: updateWishlist
 }
