@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 
 
 var wishlistSchema = new Schema({
-    _id: String,
     name: {
         type: String,
         unique: true},

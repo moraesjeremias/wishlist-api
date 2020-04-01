@@ -12,13 +12,13 @@ function getAllWishlists(request, response){
 };
 
 function getWishlistById(request, response){
-    const _id = request.params;
-    const showData = response.data;
+    const _id = request.params._id;
+    
     Wishlist.findById(_id)
-    .then(() => {
-        response.send(showData);
+    .then((data) => {
         console.log(_id);
-        console.log(showData)
+        console.log(data);
+        response.send(data)
     })
     .catch(err => {
         console.log(err)
@@ -30,8 +30,9 @@ function createWishlist(request, response) {
     const createData = request.body;
 
     Wishlist.create(createData)
-    .then(() =>{
-        response.status(201).send({message: "Wishlist created"});
+    .then((mongoObject) =>{
+        console.log(mongoObject);
+        response.status(201).send({message: "Wishlist created", objectId: mongoObject._id});
         console.log(createData);
     })
     .catch(err =>{
@@ -40,22 +41,22 @@ function createWishlist(request, response) {
     });
 }
 
-function updateWishlist(request, response){
-    const _id = request.params;
-    const updateData = request.body;
+// function updateWishlist(request, response){
+//     const _id = request.params.id;
+//     const updateData = request.body;
 
-    Wishlist.findByIdAndUpdate(_id, updateData)
-    .then(() =>{
-        response.status(200).send({message: "Content Updated"})
-        console.log(updateData);
-    }).catch(err => {
-        response.status(500).send({message: "Couldn't update your wishlist T-T"})
-    })
-}
+//     Wishlist.findByIdAndUpdate(_id, updateData)
+//     .then(() =>{
+//         response.status(200).send({message: "Content Updated"})
+//         console.log(updateData);
+//     }).catch(err => {
+//         response.status(500).send({message: "Couldn't update your wishlist T-T"})
+//     })
+// }
 
 module.exports = {
     getAllWishlists: getAllWishlists,
     getWishlistById: getWishlistById,
     createWishlist: createWishlist,
-    updateWishlist: updateWishlist
+    // updateWishlist: updateWishlist
 }
