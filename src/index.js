@@ -1,7 +1,10 @@
 const express = require('express')
 const bodyParser = require('body-parser');
-const app = express()
+const app = express();
+const dbConnect = require('./db/mongo')
 const router = require('./routes/wishlist-routes');
+
+dbConnect();
 
 const port = 3000
 
